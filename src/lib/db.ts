@@ -1,13 +1,10 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
+// process.env.MONGO_URL = 'mongodb://nextcms_admin:123456@127.0.0.1:27017/nextcms?authSource=nextcms&readPreference=primary&ssl=false'
 if (!process.env.MONGO_URL) {
   throw new Error("Please add the MONGO_URL environment variable");
 }
-
-mongoose.connect(process.env.MONGO_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(process.env.MONGO_URL)
 
 const database = mongoose.connection;
 

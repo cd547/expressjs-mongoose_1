@@ -1,20 +1,39 @@
-import "./lib/db";
-import express from "express";
-import countryRoutes from "./routes/country";
 
-const app = express();
-const port = process.env.PORT || 3333;
+import express from "express";
+import "./lib/db";
+//import countryRoutes from "./routes/country";
+import apiRoutes from "./routes/api";
+
+
+const app = express()
+const port = process.env.PORT || 3333
 
 app.use(express.json());
-app.use(express.raw({ type: "application/vnd.custom-type" }));
-app.use(express.text({ type: "text/html" }));
+app.use(express.raw({ type: "application/vnd.custom-type" }))
+app.use(express.text({ type: "text/html" }))
+
+app.all('*', (req, res, next) => {
+  console.log(`${req.headers.origin}试图访问!`)
+  const allowOrigin = [
+    'https://ai-1301963391.cos-website.ap-shanghai.myqcloud.com',
+    'http://192.168.137.1:27017',
+    'http://localhost:27017',
+  ]
+  // eslint-disable-next-line no-console
+  console.log(`${req.headers.origin}试图访问`)
+  if (allowOrigin.includes(req.headers.origin || ''))
+    res.header('Access-Control-Allow-Origin', req.headers.origin)
+  res.header('Access-Control-Allow-Headers', 'authorization, Content-Type')
+  res.header('Access-Control-Allow-Methods', '*')
+  next()
+})
 
 app.get("/", async (req, res) => {
   res.json({ message: "Please visit /countries to view all the countries" });
 });
 
-app.use("/countries", countryRoutes);
+app.use("/api", apiRoutes)
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`Example app listening at http://localhost:${port}`)
 });
