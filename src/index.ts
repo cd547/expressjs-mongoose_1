@@ -16,8 +16,8 @@ app.all('*', (req, res, next) => {
   console.log(`${req.headers.origin}试图访问!`)
   const allowOrigin = [
     'https://ai-1301963391.cos-website.ap-shanghai.myqcloud.com',
-    'http://192.168.137.1:27017',
-    'http://localhost:27017',
+    'http://192.168.137.1:1002',
+    'http://localhost:1002',
   ]
   // eslint-disable-next-line no-console
   console.log(`${req.headers.origin}试图访问`)
