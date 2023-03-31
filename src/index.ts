@@ -8,7 +8,9 @@ import apiRoutes from "./routes/api";
 const app = express()
 const port = process.env.PORT || 3333
 
-app.use(express.json());
+//1.post提交json、urlencoded数据解析
+app.use(express.urlencoded({ extended: false, limit: '64mb' }))
+app.use(express.json({ limit: '64mb' }))
 app.use(express.raw({ type: "application/vnd.custom-type" }))
 app.use(express.text({ type: "text/html" }))
 
