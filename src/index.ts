@@ -4,7 +4,7 @@ import "./lib/db";
 //import countryRoutes from "./routes/country";
 import apiRoutes from "./routes/api";
 
-
+process.env.TZ = 'Asia/Shanghai'; // 设置为中国上海时区
 const app = express()
 const port = process.env.PORT || 3333
 
